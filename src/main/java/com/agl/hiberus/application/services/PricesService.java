@@ -17,5 +17,5 @@ public interface PricesService {
      * @throws MissingHeaderInfoException - mandatory values
      * @throws RecordNotFoundException - there isn't price for that date
      */
-    Prices findPrice(Long brandId, Long productId, LocalDateTime applicationDate) throws RecordNotFoundException, MissingHeaderInfoException;
+    Prices findPrice(Long brandId, Long productId, LocalDateTime applicationDate);
 }

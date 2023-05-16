@@ -21,7 +21,7 @@ public class PricesServiceImpl implements PricesService {
     }
 
     @Override
-    public Prices findPrice(Long brandId, Long productId, LocalDateTime applicationDate) throws RecordNotFoundException, MissingHeaderInfoException {
+    public Prices findPrice(Long brandId, Long productId, LocalDateTime applicationDate) {
         if (brandId == null || productId == null || applicationDate == null)
             throw new MissingHeaderInfoException("values has not be null");
 
