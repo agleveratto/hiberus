@@ -34,8 +34,9 @@ public class PricesServiceImpl implements PricesService {
                         applicationDateForStartDate, applicationDateForEndDate);
 
         if(priceList.isEmpty())
-            throw new RecordNotFoundException("the price of the product " + productId + " for the brand " + brandId +
-                    " was not found on the requested date " + applicationDate);
+            throw new RecordNotFoundException(
+                    String.format("the price of the product {%s} for the brand {%s} was not found on the requested date {%s}",
+                            productId, brandId, applicationDate));
 
         return sortedByHighPriority(priceList);
     }
