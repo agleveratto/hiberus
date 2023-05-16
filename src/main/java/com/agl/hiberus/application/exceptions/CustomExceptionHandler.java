@@ -20,7 +20,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(RecordNotFoundException.class)
     public final ResponseEntity<ErrorResponse> handleUserNotFoundException (RecordNotFoundException ex) {
         List<String> details = new ArrayList<>();
-        details.add(ex.getLocalizedMessage());
+        details.add(ex.getMessage());
         ErrorResponse error = new ErrorResponse(NOT_FOUND, details);
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
@@ -28,7 +28,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(MissingHeaderInfoException.class)
     public final ResponseEntity<ErrorResponse> handleInvalidTraceIdException (MissingHeaderInfoException ex) {
         List<String> details = new ArrayList<>();
-        details.add(ex.getLocalizedMessage());
+        details.add(ex.getMessage());
         ErrorResponse error = new ErrorResponse(BAD_REQUEST, details);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
