@@ -6,30 +6,30 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @RestControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private static final String NOT_FOUND = "NOT_FOUND";
-    private static final String BAD_REQUEST = "BAD_REQUEST";
-
     @ExceptionHandler(RecordNotFoundException.class)
-    public final ResponseEntity<ErrorResponse> handleUserNotFoundException (RecordNotFoundException ex) {
-        List<String> details = new ArrayList<>();
-        details.add(ex.getMessage());
-        ErrorResponse error = new ErrorResponse(NOT_FOUND, details);
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    public final ResponseEntity<Object> handleUserNotFoundException (RecordNotFoundException ex, WebRequest request) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MissingHeaderInfoException.class)
-    public final ResponseEntity<ErrorResponse> handleInvalidTraceIdException (MissingHeaderInfoException ex) {
-        List<String> details = new ArrayList<>();
-        details.add(ex.getMessage());
-        ErrorResponse error = new ErrorResponse(BAD_REQUEST, details);
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    public final ResponseEntity<Object> handleInvalidTraceIdException (MissingHeaderInfoException ex, WebRequest request) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 }
