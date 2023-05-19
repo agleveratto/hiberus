@@ -1,10 +1,10 @@
-package com.agl.hiberus.domain.service;
+package com.agl.hiberus.services;
 
-import com.agl.hiberus.domain.entities.Prices;
-import com.agl.hiberus.domain.exceptions.MissingHeaderInfoException;
-import com.agl.hiberus.domain.exceptions.RecordNotFoundException;
-import com.agl.hiberus.domain.repositories.PricesRepository;
-import com.agl.hiberus.domain.services.PricesServiceImpl;
+import com.agl.hiberus.entities.Prices;
+import com.agl.hiberus.exceptions.MissingHeaderInfoException;
+import com.agl.hiberus.exceptions.RecordNotFoundException;
+import com.agl.hiberus.repositories.PricesRepository;
+import com.agl.hiberus.services.impl.PricesServiceImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,10 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -64,17 +61,16 @@ public class PriceServiceTest {
     @Test
     public void givenADate20200614T100000_whenFindByBrandIdProductIdBetweenDates_thenReturnAPriceWithHigherPriority() {
         LocalDateTime applicationDate = LocalDateTime.of(2020, Month.JUNE, 14, 10, 0);
-        Collection<Prices> expectedList = Collections.singletonList(priceBetween0614And1231);
 
-        when(this.pricesRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId,
+        when(this.pricesRepository.findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(brandId,
                 productId, applicationDate, applicationDate))
-                .thenReturn(expectedList);
+                .thenReturn(Optional.of(priceBetween0614And1231));
 
         Prices response = this.pricesService.findPrice(brandId, productId, applicationDate);
 
         assertThat(response).isNotNull().isEqualTo(priceBetween0614And1231);
 
-        verify(this.pricesRepository).findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId,
+        verify(this.pricesRepository).findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(brandId,
                 productId, applicationDate, applicationDate);
     }
 
@@ -84,17 +80,16 @@ public class PriceServiceTest {
     @Test
     public void givenADate20200614T160000_whenFindByBrandIdProductIdBetweenDates_thenReturnAPriceWithHigherPriority() {
         LocalDateTime applicationDate = LocalDateTime.of(2020, Month.JUNE, 14, 16, 0);
-        Collection<Prices> expectedList = Arrays.asList(priceBetween0614And1231, price0614);
 
-        when(this.pricesRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId,
+        when(this.pricesRepository.findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(brandId,
                 productId, applicationDate, applicationDate))
-                .thenReturn(expectedList);
+                .thenReturn(Optional.of(price0614));
 
         Prices response = this.pricesService.findPrice(brandId, productId, applicationDate);
 
         assertThat(response).isNotNull().isEqualTo(price0614);
 
-        verify(this.pricesRepository).findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId,
+        verify(this.pricesRepository).findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(brandId,
                 productId, applicationDate, applicationDate);
     }
 
@@ -104,17 +99,16 @@ public class PriceServiceTest {
     @Test
     public void givenADate20200614T210000_whenFindByBrandIdProductIdBetweenDates_thenReturnAPriceWithHigherPriority() {
         LocalDateTime applicationDate = LocalDateTime.of(2020, Month.JUNE, 14, 21, 0);
-        Collection<Prices> expectedList = Collections.singletonList(priceBetween0614And1231);
 
-        when(this.pricesRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId,
+        when(this.pricesRepository.findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(brandId,
                 productId, applicationDate, applicationDate))
-                .thenReturn(expectedList);
+                .thenReturn(Optional.of(priceBetween0614And1231));
 
         Prices response = this.pricesService.findPrice(brandId, productId, applicationDate);
 
         assertThat(response).isNotNull().isEqualTo(priceBetween0614And1231);
 
-        verify(this.pricesRepository).findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId,
+        verify(this.pricesRepository).findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(brandId,
                 productId, applicationDate, applicationDate);
     }
 
@@ -124,17 +118,16 @@ public class PriceServiceTest {
     @Test
     public void givenADate20200615T100000_whenFindByBrandIdProductIdBetweenDates_thenReturnAPriceWithHigherPriority() {
         LocalDateTime applicationDate = LocalDateTime.of(2020, Month.JUNE, 15, 10, 0);
-        Collection<Prices> expectedList = Arrays.asList(priceBetween0614And1231, price0615);
 
-        when(this.pricesRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId,
+        when(this.pricesRepository.findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(brandId,
                 productId, applicationDate, applicationDate))
-                .thenReturn(expectedList);
+                .thenReturn(Optional.of(price0615));
 
         Prices response = this.pricesService.findPrice(brandId, productId, applicationDate);
 
         assertThat(response).isNotNull().isEqualTo(price0615);
 
-        verify(this.pricesRepository).findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId,
+        verify(this.pricesRepository).findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(brandId,
                 productId, applicationDate, applicationDate);
     }
 
@@ -144,17 +137,16 @@ public class PriceServiceTest {
     @Test
     public void givenADate20200616T210000_whenFindByBrandIdProductIdBetweenDates_thenReturnAPriceWithHigherPriority() {
         LocalDateTime applicationDate = LocalDateTime.of(2020, Month.JUNE, 16, 21, 0);
-        Collection<Prices> expectedList = Arrays.asList(priceBetween0614And1231, priceBetween0615And1231);
 
-        when(this.pricesRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId,
+        when(this.pricesRepository.findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(brandId,
                 productId, applicationDate, applicationDate))
-                .thenReturn(expectedList);
+                .thenReturn(Optional.of(priceBetween0615And1231));
 
         Prices response = this.pricesService.findPrice(brandId, productId, applicationDate);
 
         assertThat(response).isNotNull().isEqualTo(priceBetween0615And1231);
 
-        verify(this.pricesRepository).findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId,
+        verify(this.pricesRepository).findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(brandId,
                 productId, applicationDate, applicationDate);
     }
 
@@ -166,14 +158,14 @@ public class PriceServiceTest {
     public void givenADate20200613T210000_whenFindByBrandIdProductIdBetweenDates_thenReturnANotFoundException() {
         LocalDateTime applicationDate = LocalDateTime.of(2020, Month.JUNE, 13, 21, 0);
 
-        when(this.pricesRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId,
+        when(this.pricesRepository.findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(brandId,
                 productId, applicationDate, applicationDate))
-                .thenReturn(new ArrayList<>());
+                .thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> this.pricesService.findPrice(brandId, productId, applicationDate))
                 .isInstanceOf(RecordNotFoundException.class);
 
-        verify(this.pricesRepository).findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId,
+        verify(this.pricesRepository).findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(brandId,
                 productId, applicationDate, applicationDate);
     }
 
@@ -185,7 +177,7 @@ public class PriceServiceTest {
         assertThatThrownBy(() -> this.pricesService.findPrice(null, null, null))
                 .isInstanceOf(MissingHeaderInfoException.class);
 
-        verify(this.pricesRepository, never()).findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(any(),
+        verify(this.pricesRepository, never()).findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(any(),
                 any(), any(), any());
     }
 }

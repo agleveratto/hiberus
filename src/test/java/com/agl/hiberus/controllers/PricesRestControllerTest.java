@@ -1,10 +1,10 @@
-package com.agl.hiberus.application.controllers;
+package com.agl.hiberus.controllers;
 
-import com.agl.hiberus.application.dto.PricesDto;
-import com.agl.hiberus.domain.entities.Prices;
-import com.agl.hiberus.domain.exceptions.MissingHeaderInfoException;
-import com.agl.hiberus.domain.exceptions.RecordNotFoundException;
-import com.agl.hiberus.domain.services.PricesServiceImpl;
+import com.agl.hiberus.dto.PricesDto;
+import com.agl.hiberus.entities.Prices;
+import com.agl.hiberus.exceptions.MissingHeaderInfoException;
+import com.agl.hiberus.exceptions.RecordNotFoundException;
+import com.agl.hiberus.services.impl.PricesServiceImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;

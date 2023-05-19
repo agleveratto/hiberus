@@ -1,11 +1,11 @@
-package com.agl.hiberus.domain.repositories;
+package com.agl.hiberus.repositories;
 
-import com.agl.hiberus.domain.entities.Prices;
+import com.agl.hiberus.entities.Prices;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.Optional;
 
 @Repository
 public interface PricesRepository extends JpaRepository<Prices, Long> {
@@ -21,11 +21,11 @@ public interface PricesRepository extends JpaRepository<Prices, Long> {
      * @param productId - id of the product
      * @param applicationDateForStartDate - date to filter the priceList and used for compare startDate value
      * @param applicationDateForEndDate - date to filter the priceList and user for compare endDate value
-     * @return a Prices with higher priority
+     * @return Prices with higher priority
      */
-    Collection<Prices> findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(Long brandId,
-                                                                                                    Long productId,
-                                                                                                    LocalDateTime applicationDateForStartDate,
-                                                                                                    LocalDateTime applicationDateForEndDate);
+    Optional<Prices> findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(Long brandId,
+                                                                                                                          Long productId,
+                                                                                                                          LocalDateTime applicationDateForStartDate,
+                                                                                                                          LocalDateTime applicationDateForEndDate);
 
 }

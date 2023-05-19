@@ -1,8 +1,8 @@
-package com.agl.hiberus.application.controllers;
+package com.agl.hiberus.controllers;
 
-import com.agl.hiberus.application.dto.PricesDto;
-import com.agl.hiberus.application.services.PricesService;
-import com.agl.hiberus.domain.entities.Prices;
+import com.agl.hiberus.dto.PricesDto;
+import com.agl.hiberus.services.PricesService;
+import com.agl.hiberus.entities.Prices;
 import org.modelmapper.ModelMapper;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;

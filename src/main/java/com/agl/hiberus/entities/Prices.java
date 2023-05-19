@@ -1,38 +1,50 @@
-package com.agl.hiberus.application.dto;
+package com.agl.hiberus.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class PricesDto implements Serializable {
-
+@Entity
+@Table
+public class Prices implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "BRAND_ID", nullable = false)
     private Long brandId;
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+
+    @Column(name = "START_DATE", nullable = false)
     private LocalDateTime startDate;
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+
+    @Column(name = "END_DATE", nullable = false)
     private LocalDateTime endDate;
+
+    @Column(name = "PRICE_LIST", nullable = false)
     private Integer priceList;
+
+    @Column(name = "PRODUCT_ID", nullable = false)
     private Long productId;
+
+    @Column(name = "PRIORITY", nullable = false)
     @JsonIgnore
     private Integer priority;
+
+    @Column(name = "PRICE", nullable = false)
     private Double price;
+
+    @Column(name = "CURRENCY", nullable = false)
     @JsonIgnore
     private String currency;
 
-    public PricesDto() {
+    public Prices() {
     }
 
-    public PricesDto(Long id, Long brandId, LocalDateTime startDate, LocalDateTime endDate, Integer priceList,
-                     Long productId, Integer priority, Double price, String currency) {
+    public Prices(Long id, Long brandId, LocalDateTime startDate, LocalDateTime endDate, Integer priceList,
+                  Long productId, Integer priority, Double price, String currency) {
         this.id = id;
         this.brandId = brandId;
         this.startDate = startDate;
@@ -44,7 +56,7 @@ public class PricesDto implements Serializable {
         this.currency = currency;
     }
 
-    public static class PricesDtoBuilder {
+    public static class PricesBuilder {
         private Long id;
         private Long brandId;
         private LocalDateTime startDate;
@@ -55,65 +67,74 @@ public class PricesDto implements Serializable {
         private Double price;
         private String currency;
 
-        public PricesDtoBuilder() {
+        public PricesBuilder() {
         }
 
-        public PricesDtoBuilder id(Long id){
+        public PricesBuilder id(Long id) {
             this.id = id;
             return this;
         }
-        public PricesDtoBuilder brandId(Long brandId){
+
+        public PricesBuilder brandId(Long brandId) {
             this.brandId = brandId;
             return this;
         }
-        public PricesDtoBuilder startDate(LocalDateTime startDate){
+
+        public PricesBuilder startDate(LocalDateTime startDate) {
             this.startDate = startDate;
             return this;
         }
-        public PricesDtoBuilder endDate(LocalDateTime endDate){
+
+        public PricesBuilder endDate(LocalDateTime endDate) {
             this.endDate = endDate;
             return this;
         }
-        public PricesDtoBuilder priceList(Integer priceList){
+
+        public PricesBuilder priceList(Integer priceList) {
             this.priceList = priceList;
             return this;
         }
-        public PricesDtoBuilder productId(Long productId){
+
+        public PricesBuilder productId(Long productId) {
             this.productId = productId;
             return this;
         }
-        public PricesDtoBuilder priority(Integer priority){
+
+        public PricesBuilder priority(Integer priority) {
             this.priority = priority;
             return this;
         }
-        public PricesDtoBuilder price(Double price){
+
+        public PricesBuilder price(Double price) {
             this.price = price;
             return this;
         }
-        public PricesDtoBuilder currency(String currency){
+
+        public PricesBuilder currency(String currency) {
             this.currency = currency;
             return this;
         }
 
-        public PricesDto build(){
-            return new PricesDto(id, brandId, startDate, endDate, priceList, productId, priority, price, currency);
+        public Prices build() {
+            return new Prices(id, brandId, startDate, endDate, priceList, productId, priority, price, currency);
         }
     }
 
-    public static PricesDtoBuilder builder(){
-        return new PricesDtoBuilder();
+    public static PricesBuilder builder() {
+        return new PricesBuilder();
     }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PricesDto pricesDto = (PricesDto) o;
-        return Objects.equals(id, pricesDto.id) && Objects.equals(brandId, pricesDto.brandId) &&
-                Objects.equals(startDate, pricesDto.startDate) && Objects.equals(endDate, pricesDto.endDate) &&
-                Objects.equals(priceList, pricesDto.priceList) && Objects.equals(productId, pricesDto.productId) &&
-                Objects.equals(priority, pricesDto.priority) && Objects.equals(price, pricesDto.price) &&
-                Objects.equals(currency, pricesDto.currency);
+        Prices prices = (Prices) o;
+        return Objects.equals(id, prices.id) && Objects.equals(brandId, prices.brandId) &&
+                Objects.equals(startDate, prices.startDate) && Objects.equals(endDate, prices.endDate) &&
+                Objects.equals(priceList, prices.priceList) && Objects.equals(productId, prices.productId) &&
+                Objects.equals(priority, prices.priority) && Objects.equals(price, prices.price) &&
+                Objects.equals(currency, prices.currency);
     }
 
     @Override

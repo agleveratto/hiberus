@@ -1,4 +1,4 @@
-package com.agl.hiberus.domain.exceptions;
+package com.agl.hiberus.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

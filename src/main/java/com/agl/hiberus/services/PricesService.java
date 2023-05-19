@@ -1,8 +1,8 @@
-package com.agl.hiberus.application.services;
+package com.agl.hiberus.services;
 
-import com.agl.hiberus.domain.entities.Prices;
-import com.agl.hiberus.domain.exceptions.MissingHeaderInfoException;
-import com.agl.hiberus.domain.exceptions.RecordNotFoundException;
+import com.agl.hiberus.entities.Prices;
+import com.agl.hiberus.exceptions.MissingHeaderInfoException;
+import com.agl.hiberus.exceptions.RecordNotFoundException;
 
 import java.time.LocalDateTime;
 
